@@ -7,7 +7,7 @@ var config = {
 
   // We change to normal source mapping
   devtool: 'source-map',
-  entry: './public/index.js',
+  entry: './index.js',
   output: {
     path: buildPath,
     filename: 'bundle.js'
