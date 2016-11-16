@@ -22,7 +22,5 @@ module.exports = () => {
       colors: true
     }
   });
-  bundler.listen(8080, () => {
-    console.log('Bundling project, please wait...');
-  });
+  bundler.listen(8080, () => console.log('Bundling project, please wait...'));
 };

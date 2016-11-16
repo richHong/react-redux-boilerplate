@@ -10,7 +10,7 @@ import App from './public/src/components/App';
 
 import './public/styles/main.scss';
 
-let store = createStore(rootReducer);
+const store = createStore(rootReducer);
 
 render(<Provider store={store}>
          <App />
