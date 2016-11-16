@@ -1,29 +1,25 @@
-var express    = require('express');
-var path       = require('path');
-var httpProxy  = require('http-proxy');
-var publicPath = path.resolve(__dirname, 'public');
-
-var port = process.env.PORT || 3000;
-var proxy = httpProxy.createProxyServer({
+'use strict';
+const express    = require('express');
+const path       = require('path');
+const httpProxy  = require('http-proxy');
+const publicPath = path.resolve(__dirname, 'public');
+const port = process.env.PORT || 3000;
+const app = express();
+const bundle = require('./server/compiler.js');
+const proxy = httpProxy.createProxyServer({
   changeOrigin: true
 });
 
-var app = express();
 app.use(express.static(publicPath));
-
-var bundle = require('./server/compiler.js');
 bundle();
-
-app.all('/build/*', function (req, res) {
+app.all('/build/*', (req, res) => {
   proxy.web(req, res, {
       target: 'http://localhost:8080'
   });
 });
-
-proxy.on('error', function(e) {
+proxy.on('error', e => {
   console.log('Could not connect to proxy, please try again...');
 });
-
-app.listen(port, function () {
+app.listen(port, () => {
   console.log('Server running on port ' + port);
 });

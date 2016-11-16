@@ -1,8 +1,9 @@
-var webpack   = require('webpack');
-var path      = require('path');
-var buildPath = path.resolve(__dirname, 'public', 'build');
+'use strict';
+const webpack   = require('webpack');
+const path      = require('path');
+const buildPath = path.resolve(__dirname, 'public', 'build');
 
-var config = {
+module.exports = {
   devtool: 'source-map',
   entry: './index.js',
   output: {
@@ -44,4 +45,3 @@ var config = {
     ]
   }
 };
-module.exports = config;

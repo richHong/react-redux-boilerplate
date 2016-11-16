@@ -1,15 +1,16 @@
-var Webpack          = require('webpack');
-var WebpackDevServer = require('webpack-dev-server');
-var WebpackConfig    = require('./../webpack.config.js');
+'use strict';
+const Webpack          = require('webpack');
+const WebpackDevServer = require('webpack-dev-server');
+const WebpackConfig    = require('./../webpack.config.js');
 
-module.exports = function () {
-  var bundleStart = null;
-  var compiler = Webpack(WebpackConfig);
-  compiler.plugin('compile', function() {
+module.exports = () => {
+  let bundleStart = null;
+  const compiler = Webpack(WebpackConfig);
+  compiler.plugin('compile', () => {
     console.log('Bundling...');
     bundleStart = Date.now();
   });
-  compiler.plugin('done', function() {
+  compiler.plugin('done', () => {
     console.log('Bundled in ' + (Date.now() - bundleStart) + 'ms!');
   });
   var bundler = new WebpackDevServer(compiler, {
@@ -21,7 +22,7 @@ module.exports = function () {
       colors: true
     }
   });
-  bundler.listen(8080, function () {
+  bundler.listen(8080, () => {
     console.log('Bundling project, please wait...');
   });
 };
