@@ -1,11 +1,8 @@
-var webpack = require('webpack');
-var path = require('path');
-var nodeModulesPath = path.resolve(__dirname, 'node_modules');
+var webpack   = require('webpack');
+var path      = require('path');
 var buildPath = path.resolve(__dirname, 'public', 'build');
 
 var config = {
-
-  // We change to normal source mapping
   devtool: 'source-map',
   entry: './index.js',
   output: {
@@ -21,9 +18,8 @@ var config = {
     }),
     new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
-})
+    })
   ],
-
   module: {
     loaders: [
       {
@@ -31,17 +27,21 @@ var config = {
         loader: 'babel?presets[]=react,presets[]=es2015',
         exclude: '/node_modules'
       },
-      //This converts our .css into JS
-      { test: /\.s?css$/, loaders: ['style', 'css', 'sass?outputStyle=expanded'] },
+      { 
+        test: /\.css$/,
+        loader: 'css-loader' 
+      },
+      {
+        test: /\.scss$/,
+        loader: 'style-loader!css-loader!sass-loader'
+      }
     ]
   },
-
   resolve: {
-      extensions: ['', '.js', '.jsx', '.css', '.scss', '.json'],
-      modulesDirectories: [
-        'node_modules'
-      ]
-  },
+    extensions: ['', '.js', '.jsx', '.css', '.scss', '.json'],
+    modulesDirectories: [
+      'node_modules'
+    ]
+  }
 };
-
 module.exports = config;
